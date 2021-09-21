@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.back{
+    /* background-color: red;
+    border: 2px solid red; */
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%)
+}
+
+.container{
+    overflow:auto;
+}
+
+.ok{
+    text-align: right;
+}
+.white{
+    letter-spacing:20px;
+}
+
+
+.profile{
+    max-width: 50px;
+}
+
+
+.del_add{
+    text-align: right;
+}
+
+.crud{
+    text-align:right;
+}
+
