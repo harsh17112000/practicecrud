@@ -13,13 +13,13 @@ import Register from './NewCom/Register';
 const App = () => {
   return (
     <>
-     <Navbaar />
+      <Navbaar />
       <Switch>
-      <Route exact path="/">
+        <Route exact path="/">
           <Home />
         </Route>
         <Route exact path="/register">
-            <Register />
+          <Register />
         </Route>
         <Route exact path="/getdata/:id">
           <View />

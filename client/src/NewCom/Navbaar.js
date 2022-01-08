@@ -7,7 +7,7 @@ const Navbaar = () => {
     return (
         <>
             <div className="back">
-                <nav className="navbar navbar-expand-lg navbar-light bg-white okok">
+                <nav className="navbar navbar-expand-lg navbar-light bg-white">
                     <div className="container-fluid ">
                         <NavLink className="navbar-brand" to="/">Navbar</NavLink>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,8 +27,6 @@ const Navbaar = () => {
                     </div>
                 </nav>
             </div>
-
-           
         </>
     )
 }

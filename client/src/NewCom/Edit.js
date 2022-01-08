@@ -25,7 +25,7 @@ const Edit = () => {
     const userind = async()=>{
 
         try {
-            const res = await fetch(`https://userprofilecrud.herokuapp.com/getdata/${id}`,{
+            const res = await fetch(`/getdata/${id}`,{
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -50,13 +50,25 @@ const Edit = () => {
         userind();
     },[]);
 
+    const changeinp = (e)=>{
+        const {name,value} = e.target;
+
+        setUser((preval)=>{
+            return {
+                ...preval,
+                [name]:value
+            }
+        })
+
+    }
+
     const addinp = async(e)=>{
         e.preventDefault();
 
         const {name,email,age,mobile,work,add,desc} = user;
 
         try {
-            const res1 = await fetch(`https://userprofilecrud.herokuapp.com/edit/${id}`, {
+            const res1 = await fetch(`/edit/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
@@ -84,17 +96,7 @@ const Edit = () => {
         }
     }
 
-    const changeinp = (e)=>{
-        const {name,value} = e.target;
-
-        setUser((preval)=>{
-            return {
-                ...preval,
-                [name]:value
-            }
-        })
-
-    }
+   
 
     return (
         <div className="container mt-2">

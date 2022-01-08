@@ -1,5 +1,5 @@
 import { Card, CardContent } from '@mui/material'
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -7,34 +7,34 @@ import WorkIcon from '@mui/icons-material/Work';
 import { NavLink } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { useParams,useHistory } from 'react-router-dom';
-import okok from  "./img/profile.png";
+import { useParams, useHistory } from 'react-router-dom';
+import okok from "./img/profile.png";
 
 const View = () => {
 
-    const [user,setUser] = useState([]);
+    const [user, setUser] = useState([]);
 
-    const {id} = useParams();
-    console.log(id); 
+    const { id } = useParams();
+    console.log(id);
 
     const history = useHistory();
 
-    const userind = async()=>{
+    const userind = async () => {
 
         try {
-            const res = await fetch(`https://userprofilecrud.herokuapp.com/getdata/${id}`,{
+            const res = await fetch(`/getdata/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
-    
+
             const data = await res.json();
             console.log(data);
-    
-            if(res === 404 && !data){
+
+            if (res === 404 && !data) {
                 console.log("no data present");
-            }else{
+            } else {
                 console.log("data matched");
                 setUser(data)
             }
@@ -43,14 +43,14 @@ const View = () => {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         userind();
-    },[])
+    }, [])
 
 
-    const dltuser = async(id)=>{
+    const dltuser = async (id) => {
         try {
-            const res1 = await fetch(`https://userprofilecrud.herokuapp.com/${id}`, {
+            const res1 = await fetch(`/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
@@ -96,8 +96,8 @@ const View = () => {
                                 <NavLink to={`/edit/${user._id}`}>
                                     <button className="btn btn-primary mx-2"> <EditIcon /></button>
                                 </NavLink>
-                                <NavLink to={`/${user._id}`}>
-                                    <button className="btn btn-danger" onClick={()=>dltuser(user._id)}> <DeleteOutlineIcon /></button>
+                                <NavLink to="">
+                                    <button className="btn btn-danger" onClick={() => dltuser(user._id)}> <DeleteOutlineIcon /></button>
                                 </NavLink>
                             </div>
 
@@ -110,7 +110,7 @@ const View = () => {
                     </div>
                 </CardContent>
             </Card>
-        
+
         </div>
     )
 }

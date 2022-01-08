@@ -4,31 +4,27 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import "../App.css"
-import { NavLink, useParams, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { datacontext, dltcontext } from "./context/Contextprovider";
 import Alert from '@mui/material/Alert';
-import CircularProgress from '@mui/material/CircularProgress';
-import Snackbar from '@mui/material/Snackbar';
 import { updatecontext } from './context/Contextprovider';
+
 
 
 
 const Home = () => {
 
 
-    const [finaldata, setFinaldata] = useState([]);
+    const [finaldata, setFinaldata] = useState("");// aiya jo error aave to [] kri devu
 
     const history = useHistory();
 
     const { state, setState } = useContext(datacontext);
     const { dlt, setDlt } = useContext(dltcontext);
 
-    const {update,setUpdate} = useContext(updatecontext);
+    const { update, setUpdate } = useContext(updatecontext);
     console.log(update);
 
-    // const [open, setOpen] = useState(false);
-
-    // console.log(state);
     console.log(dlt);
 
     const getres = async () => {
@@ -56,13 +52,16 @@ const Home = () => {
 
     }
 
+    console.log("waiting" + finaldata);
+
     useEffect(() => {
+        console.log("ok");
         getres();
     }, []);
 
     const dltuser = async (id) => {
         try {
-            const res = await fetch(`https://userprofilecrud.herokuapp.com/${id}`, {
+            const res = await fetch(`/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
@@ -79,7 +78,6 @@ const Home = () => {
                 history.push("/");
                 // alert("user delete done");
                 setDlt(data);
-                // setOpen(true);
                 getres();
             }
 
@@ -88,9 +86,6 @@ const Home = () => {
         }
     }
 
-    // const handleClose = ()=>{
-    //     // setOpen(false)
-    // }
 
 
     return (
@@ -114,56 +109,44 @@ const Home = () => {
                         <NavLink to="/register">
                             <button className="btn btn-primary"> <AddIcon />Add Data</button>
                         </NavLink>
-
                     </div>
-                    {
-                        finaldata ? (
 
-                            <table class="table">
-                                <thead>
-                                    <tr className="table-dark">
-                                        <th scope="col">Id</th>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Job</th>
-                                        <th scope="col">Number</th>
-                                        <th scope="col" className="crud"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        finaldata.map((element, ind) => {
-                                            return (
-                                                <>
-                                                    <tr>
-                                                        <th scope="row">{ind + 1}</th>
-                                                        <td>{element.name}</td>
-                                                        <td>{element.email}</td>
-                                                        <td>{element.work}</td>
-                                                        <td>{element.mobile}</td>
-                                                        <td className="d-flex justify-content-evenly">
-                                                            <NavLink to={`getdata/${element._id}`}><button className="btn btn-success"><VisibilityIcon /> </button></NavLink>
-                                                            <NavLink to={`edit/${element._id}`}> <button className="btn btn-primary"><EditIcon /></button> </NavLink>
-                                                            <NavLink to=""><button onClick={() => dltuser(element._id)} className="btn btn-danger" ><DeleteOutlineIcon /></button></NavLink>
-                                                        </td>
-                                                    </tr>
-                                                </>
-                                            )
-                                        })
-                                    }
 
-                                </tbody>
-                            </table>
-                        ) : <p>  <CircularProgress /> </p>
-                    }
-
+                    <table className="table">
+                        <thead>
+                            <tr className="table-dark">
+                                <th scope="col">Id</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Job</th>
+                                <th scope="col">Number</th>
+                                <th scope="col" className="crud"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                finaldata.map((element, ind) => {
+                                    return (
+                                        <>
+                                            <tr>
+                                                <th scope="row">{ind + 1}</th>
+                                                <td>{element.name}</td>
+                                                <td>{element.email}</td>
+                                                <td>{element.work}</td>
+                                                <td>{element.mobile}</td>
+                                                <td className="d-flex justify-content-evenly">
+                                                    <NavLink to={`getdata/${element._id}`}><button className="btn btn-success"><VisibilityIcon /> </button></NavLink>
+                                                    <NavLink to={`edit/${element._id}`}> <button className="btn btn-primary"><EditIcon /></button> </NavLink>
+                                                    <NavLink to=""><button onClick={() => dltuser(element._id)} className="btn btn-danger" ><DeleteOutlineIcon /></button></NavLink>
+                                                </td>
+                                            </tr>
+                                        </>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
                 </div>
-                {/* <Snackbar
-                    open={open}
-                    autoHideDuration={3000}
-                    onClose={handleClose}
-                    message="user Delete Successful"
-                /> */}
             </section>
         </>
     )
